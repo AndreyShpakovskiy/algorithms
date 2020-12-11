@@ -5,7 +5,7 @@
 
 import random
 
-n = random.randint(10000)
+n = 10000
 arr = [random.randint(0, 100) for a in range(n)]
 arr.sort()
 arg = int(input())
