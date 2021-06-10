@@ -1,0 +1,119 @@
+1.1
+input: '1111111'
+blank: ' '
+start state: q0
+
+table:
+  q0:
+    [1,0,λ]: {R: q1}
+  q1:
+    1: {write: 0, R}
+    0: {write: 1, R}
+    λ : {write: 1, L: qz}
+  qz:
+
+1.2
+input: '11λ01λ11111'
+blank: ' '
+start state: q01
+table:
+  q01:
+    [1,0,λ]: {R: q02}
+  q02:
+    [1,0,λ]: {R: q03}
+  q03:
+    [1,0,λ]: {R: q04}
+  q04:
+    [1,0,λ]: {R: q05}
+  q05:
+    [1,0,λ]: {R: q06}
+  q06:
+    [1,0,λ]: {R: q1}
+  q1:
+    1: {write: λ, R}
+    0: {write: 1, R}
+    λ: {R: q2}
+  q2:
+    1: {R: q3}
+    0: {R: q3}
+    λ: {R: q3}
+  q3:
+    1: {write: λ, R: q4}
+    0: {write: 1, R: q4}
+    λ: {R: q4}
+  q4:
+    1:  L
+    0:  {L: q1}
+    λ:  {R: qz}
+  qz:
+
+1.3
+input: 'cabdacdacb'
+blank: ' '
+start state: q1
+table:
+  q1:
+    [a,b,c,k]: R
+    d: {R: q2}
+  q2:
+    [b,c,d]: {R: q1}
+    a: {write: '*' ,L: q3}
+  q3:
+    d: {write: k, R: q4}
+  q4:
+    '*': R
+    a: {L: qa}
+    b: {L: qb}
+    c: {L: qc}
+    d: {L: qd}
+    ' ': {L: qz}
+    
+  qa:
+    '*': {write: a, R}
+    a: {write: '*', R: q4}
+  qb:
+    '*': {write: b, R}
+    b: {write: '*', R: q4}
+  qc:
+    '*': {write: c, R}
+    c: {write: '*', R: q4}
+  qd:
+    '*': {write: d, R}
+    d: {write: '*', R: q4}
+  qz:
+    '*': {write: ' ', L}
+    [a,b,c,d,k]: L
+    ' ': {R: q1}
+
+2
+input: 'basfdvdakqaaaja'
+blank: ' '
+start state: q1
+table:
+  q1:
+    [b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,,w,x,y,z]: R
+    a: {write: '*',R: q2}
+  q2:
+    [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,,w,x,y,z,1,'*']: R
+    ' ': {write: 1, L: q3}
+  q3:
+     [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,,w,x,y,z,1]: L
+     '*': {R: q1}
+
+4
+111->0
+01->1
+00->0
+
+5
+J(1, 2, 10)
+S(2)
+J(1,2,6)
+S(2)
+J(1, 1, 1)
+Z(1)
+Z(2)
+S(1)
+J(1,1,12)
+Z(1)
+Z(2)
